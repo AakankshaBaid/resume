@@ -5,11 +5,66 @@ html<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Resume</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; }
-        iframe { width: 100%; height: 100%; border: none; }
+        /* Modern, clean background */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            background-color: #525659; 
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        /* Container that ensures full scrolling on mobile */
+        .resume-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Mobile-friendly viewer that forces proper rendering */
+        object, embed {
+            width: 100%;
+            height: 100%;
+            flex-grow: 1;
+        }
+        /* Fallback button for older mobile browsers that completely block inline PDFs */
+        .mobile-fallback {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #0076ff;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        /* If an older phone can't load the object, show the download option */
+        @media (max-width: 768px) {
+            object:empty + .mobile-fallback {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
-    <iframe src="Aakanksha_Baid_Resume.pdf"></iframe>
+
+    <div class="resume-container">
+        <!-- Using <object> provides better native zooming and multi-page support on iOS/Android -->
+        <object data="resume.pdf" type="application/pdf">
+            <embed src="resume.pdf" type="application/pdf" />
+            
+            <!-- This shows up automatically if the phone completely rejects the PDF viewer -->
+            <div class="mobile-fallback">
+                <p>Your browser doesn't support viewing PDFs inline.</p>
+                <a href="resume.pdf" target="_blank" class="btn">View / Download Resume PDF</a>
+            </div>
+        </object>
+    </div>
+
 </body>
 </html>
